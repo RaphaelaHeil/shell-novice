@@ -37,10 +37,6 @@ $ pwd
 ~~~
 {: .language-bash}
 
-~~~
-/Users/nelle/Desktop/shell-lesson-data
-~~~
-{: .output}
 
 Next we'll move to the `exercise-data/writing` directory and see what it contains:
 ~~~
@@ -53,10 +49,6 @@ $ ls -F
 ~~~
 {: .language-bash}
 
-~~~
-haiku.txt  LittleWomen.txt
-~~~
-{: .output}
 
 ### Create a directory
 
@@ -79,10 +71,6 @@ $ ls -F
 ~~~
 {: .language-bash}
 
-~~~
-haiku.txt  LittleWomen.txt  thesis/
-~~~
-{: .output}
 
 Since we've just created the `thesis` directory, there's nothing in it yet:
 
@@ -108,16 +96,6 @@ Let's use `ls -FR` to recursively list the new directory hierarchy we just creat
 $ ls -FR ../project
 ~~~
 {: .language-bash}
-
-~~~
-../project/:
-data/  results/
-
-../project/data:
-
-../project/results:
-~~~
-{: .output}
 
 > ## Two ways of doing the same thing
 > Using the shell to create a directory is no different than using a file explorer.
@@ -158,7 +136,7 @@ data/  results/
 {: .callout}
 
 
-> ## Reproduce a folder structure
+> ## EXERCISE: Reproduce a folder structure
 >
 > You're starting a new experiment and would like to duplicate the directory
 > structure from your previous experiment so you can add new data.
@@ -311,7 +289,7 @@ draft.txt
 ~~~
 {: .output}
 
-> ## Creating Files a Different Way
+> ## INFO: Creating Files a Different Way
 >
 > We have seen how to create text files using the `nano` editor.
 > Now, try the following command:
@@ -404,14 +382,10 @@ $ ls thesis
 ~~~
 {: .language-bash}
 
-~~~
-quotes.txt
-~~~
-{: .output}
 
 One must be careful when specifying the target file name, since `mv` will
-silently overwrite any existing file with the same name, which could
-lead to data loss. An additional option, `mv -i` (or `mv --interactive`),
+**silently** overwrite any existing file with the same name, which could
+lead to **data loss**. An additional option, `mv -i` (or `mv --interactive`),
 can be used to make `mv` ask you for confirmation before overwriting.
 
 Note that `mv` also works on directories.
@@ -438,11 +412,6 @@ $ ls thesis
 ~~~
 {: .language-bash}
 
-~~~
-$
-~~~
-{: .output}
-
 Alternatively, we can confirm the file `quotes.txt` is no longer present in the `thesis` directory
 by explicitly trying to list it:
 
@@ -451,10 +420,6 @@ $ ls thesis/quotes.txt
 ~~~
 {: .language-bash}
 
-```
-ls: cannot access 'thesis/quotes.txt': No such file or directory
-```
-{: .error}
 
 `ls` with a filename or directory as an argument only lists the requested file or directory.
 If the file given as the argument doesn't exist, the shell returns an error as we saw above.
@@ -465,58 +430,8 @@ $ ls quotes.txt
 ~~~
 {: .language-bash}
 
-~~~
-quotes.txt
-~~~
-{: .output}
 
-> ## Organizing Directories and Files
->
-> Jamie is working on a project and she sees that her files aren't very well
-> organized:
->
-> ~~~
-> $ ls -F
-> ~~~
-> {: .language-bash}
-> ~~~
-> analyzed/  fructose.dat    raw/   sucrose.dat
-> ~~~
-> {: .output}
->
-> The `fructose.dat` and `sucrose.dat` files contain output from her data
-> analysis. What command(s) covered in this lesson does she need to run
-> so that the commands below will produce the output shown?
->
-> ~~~
-> $ ls -F
-> ~~~
-> {: .language-bash}
-> ~~~
-> analyzed/   raw/
-> ~~~
-> {: .output}
-> ~~~
-> $ ls analyzed
-> ~~~
-> {: .language-bash}
-> ~~~
-> fructose.dat    sucrose.dat
-> ~~~
-> {: .output}
->
-> > ## Solution
-> > ```
-> > mv *.dat analyzed
-> > ```
-> > {: .language-bash}
-> > Jamie needs to move her files `fructose.dat` and `sucrose.dat` to the `analyzed` directory.
-> > The shell will expand *.dat to match all .dat files in the current directory.
-> > The `mv` command then moves the list of .dat files to the 'analyzed' directory.
-> {: .solution}
-{: .challenge}
-
-> ## Organizing Directories and Files
+> ## EXERCISE: Organizing Directories and Files
 >
 > Jamie is working on a project and she sees that her files aren't very well
 > organized:
@@ -577,10 +492,6 @@ $ ls quotes.txt thesis/quotations.txt
 ~~~
 {: .language-bash}
 
-~~~
-quotes.txt   thesis/quotations.txt
-~~~
-{: .output}
 
 We can also copy a directory and all its contents by using the
 [recursive](https://en.wikipedia.org/wiki/Recursion) option `-r`,
@@ -598,17 +509,8 @@ $ ls thesis thesis_backup
 ```
 {: .language-bash}
 
-```
-thesis:
-quotations.txt
 
-thesis_backup:
-quotations.txt
-```
-{: .output}
-
-
-> ## Renaming Files
+> ## INFO: Renaming Files
 >
 > Suppose that you created a plain-text file in your current directory to contain a list of the
 > statistical tests you will need to do to analyze your data, and named it: `statstics.txt`
@@ -634,7 +536,7 @@ quotations.txt
 > {: .solution}
 {: .challenge}
 
-> ## Moving and Copying
+> ## INFO: Moving and Copying
 >
 > What is the output of the closing `ls` command in the sequence shown below?
 >
@@ -720,7 +622,7 @@ ls: cannot access 'quotes.txt': No such file or directory
 {: .callout}
 
 
-> ## Using `rm` Safely
+> ## INFO: Using `rm` Safely
 >
 > What happens when we execute `rm -i thesis_backup/quotations.txt`?
 > Why would we want this protection when using `rm`?
@@ -772,7 +674,7 @@ Oftentimes one needs to copy or move several files at once.
 This can be done by providing a list of individual filenames,
 or specifying a naming pattern using wildcards.
 
-> ## Copy with Multiple Filenames
+> ## INFO: Copy with Multiple Filenames
 >
 > For this exercise, you can test the commands in the `shell-lesson-data/exercise-data` directory.
 >
@@ -847,7 +749,7 @@ or specifying a naming pattern using wildcards.
 > expanding wildcards.
 {: .callout}
 
-> ## List filenames matching a pattern
+> ## EXERCISE: List filenames matching a pattern
 >
 > When run in the `proteins` directory, which `ls` command(s) will
 > produce this output?
@@ -880,7 +782,7 @@ or specifying a naming pattern using wildcards.
 > {: .solution}
 {: .challenge}
 
-> ## More on Wildcards
+> ## INFO: More on Wildcards
 >
 > Sam has a directory containing calibration data, datasets, and descriptions of
 > the datasets:
