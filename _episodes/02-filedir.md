@@ -34,8 +34,6 @@ which hold information,
 and directories (also called 'folders'),
 which hold files or other directories.
 
-Several commands are frequently used to create, inspect, rename, and delete files and directories.
-To start exploring them, we'll go to our open shell window.
 
 First, let's find out where we are by running a command called `pwd`
 (which stands for 'print working directory'). Directories are like *places* — at any time

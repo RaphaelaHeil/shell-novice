@@ -157,6 +157,81 @@ data/  results/
 > or other special characters, you should surround the name in quotes (`""`).
 {: .callout}
 
+
+> ## Reproduce a folder structure
+>
+> You're starting a new experiment and would like to duplicate the directory
+> structure from your previous experiment so you can add new data.
+>
+> Assume that the previous experiment is in a folder called `2016-05-18`,
+> which contains a `data` folder that in turn contains folders named `raw` and
+> `processed` that contain data files.  The goal is to copy the folder structure
+> of the `2016-05-18` folder into a folder called `2016-05-20`
+> so that your final directory structure looks like this:
+>
+> ~~~
+> 2016-05-20/
+> └── data
+>    ├── processed
+>    └── raw
+> ~~~
+> {: .output}
+>
+> Which of the following set of commands would achieve this objective?
+> What would the other commands do?
+>
+> ~~~
+> $ mkdir 2016-05-20
+> $ mkdir 2016-05-20/data
+> $ mkdir 2016-05-20/data/processed
+> $ mkdir 2016-05-20/data/raw
+> ~~~
+> {: .language-bash}
+> ~~~
+> $ mkdir 2016-05-20
+> $ cd 2016-05-20
+> $ mkdir data
+> $ cd data
+> $ mkdir raw processed
+> ~~~
+> {: .language-bash}
+> ~~~
+> $ mkdir 2016-05-20/data/raw
+> $ mkdir 2016-05-20/data/processed
+> ~~~
+> {: .language-bash}
+> ~~~
+> $ mkdir -p 2016-05-20/data/raw
+> $ mkdir -p 2016-05-20/data/processed
+> ~~~
+> {: .language-bash}
+> ~~~
+> $ mkdir 2016-05-20
+> $ cd 2016-05-20
+> $ mkdir data
+> $ mkdir raw processed
+> ~~~
+> {: .language-bash}
+> >
+> > ## Solution
+> > The first two sets of commands achieve this objective.
+> > The first set uses relative paths to create the top-level directory before
+> > the subdirectories.
+> >
+> > The third set of commands will give an error because the default behavior of `mkdir`
+> > won't create a subdirectory of a non-existent directory:
+> > the intermediate level folders must be created first.
+> >
+> > The fourth set of commands achieve this objective. Remember, the `-p` option,
+> > followed by a path of one or more
+> > directories, will cause `mkdir` to create any intermediate subdirectories as required.
+> >
+> > The final set of commands generates the 'raw' and 'processed' directories at the same level
+> > as the 'data' directory.
+> {: .solution}
+{: .challenge}
+
+
 ### Create a text file
 Let's change our working directory to `thesis` using `cd`,
 then run a text editor called Nano to create a file called `draft.txt`:
@@ -395,37 +470,98 @@ quotes.txt
 ~~~
 {: .output}
 
-> ## Moving Files to a new folder
+> ## Organizing Directories and Files
 >
-> After running the following commands,
-> Jamie realizes that she put the files `sucrose.dat` and `maltose.dat` into the wrong folder.
-> The files should have been placed in the `raw` folder.
+> Jamie is working on a project and she sees that her files aren't very well
+> organized:
 >
 > ~~~
 > $ ls -F
->  analyzed/ raw/
-> $ ls -F analyzed
-> fructose.dat glucose.dat maltose.dat sucrose.dat
-> $ cd analyzed
 > ~~~
 > {: .language-bash}
+> ~~~
+> analyzed/  fructose.dat    raw/   sucrose.dat
+> ~~~
+> {: .output}
 >
-> Fill in the blanks to move these files to the `raw/` folder
-> (i.e. the one she forgot to put them in)
+> The `fructose.dat` and `sucrose.dat` files contain output from her data
+> analysis. What command(s) covered in this lesson does she need to run
+> so that the commands below will produce the output shown?
 >
 > ~~~
-> $ mv sucrose.dat maltose.dat ____/____
+> $ ls -F
 > ~~~
 > {: .language-bash}
+> ~~~
+> analyzed/   raw/
+> ~~~
+> {: .output}
+> ~~~
+> $ ls analyzed
+> ~~~
+> {: .language-bash}
+> ~~~
+> fructose.dat    sucrose.dat
+> ~~~
+> {: .output}
+>
 > > ## Solution
 > > ```
-> > $ mv sucrose.dat maltose.dat ../raw
+> > mv *.dat analyzed
 > > ```
 > > {: .language-bash}
-> > Recall that `..` refers to the parent directory (i.e. one above the current directory)
-> > and that `.` refers to the current directory.
+> > Jamie needs to move her files `fructose.dat` and `sucrose.dat` to the `analyzed` directory.
+> > The shell will expand *.dat to match all .dat files in the current directory.
+> > The `mv` command then moves the list of .dat files to the 'analyzed' directory.
 > {: .solution}
 {: .challenge}
+
+> ## Organizing Directories and Files
+>
+> Jamie is working on a project and she sees that her files aren't very well
+> organized:
+>
+> ~~~
+> $ ls -F
+> ~~~
+> {: .language-bash}
+> ~~~
+> analyzed/  fructose.dat    raw/   sucrose.dat
+> ~~~
+> {: .output}
+>
+> The `fructose.dat` and `sucrose.dat` files contain output from her data
+> analysis. What command(s) covered in this lesson does she need to run
+> so that the commands below will produce the output shown?
+>
+> ~~~
+> $ ls -F
+> ~~~
+> {: .language-bash}
+> ~~~
+> analyzed/   raw/
+> ~~~
+> {: .output}
+> ~~~
+> $ ls analyzed
+> ~~~
+> {: .language-bash}
+> ~~~
+> fructose.dat    sucrose.dat
+> ~~~
+> {: .output}
+>
+> > ## Solution
+> > ```
+> > mv *.dat analyzed
+> > ```
+> > {: .language-bash}
+> > Jamie needs to move her files `fructose.dat` and `sucrose.dat` to the `analyzed` directory.
+> > The shell will expand *.dat to match all .dat files in the current directory.
+> > The `mv` command then moves the list of .dat files to the 'analyzed' directory.
+> {: .solution}
+{: .challenge}
+
 
 ## Copying files and directories
 
@@ -842,123 +978,8 @@ or specifying a naming pattern using wildcards.
 > {: .solution}
 {: .challenge}
 
-> ## Organizing Directories and Files
->
-> Jamie is working on a project and she sees that her files aren't very well
-> organized:
->
-> ~~~
-> $ ls -F
-> ~~~
-> {: .language-bash}
-> ~~~
-> analyzed/  fructose.dat    raw/   sucrose.dat
-> ~~~
-> {: .output}
->
-> The `fructose.dat` and `sucrose.dat` files contain output from her data
-> analysis. What command(s) covered in this lesson does she need to run
-> so that the commands below will produce the output shown?
->
-> ~~~
-> $ ls -F
-> ~~~
-> {: .language-bash}
-> ~~~
-> analyzed/   raw/
-> ~~~
-> {: .output}
-> ~~~
-> $ ls analyzed
-> ~~~
-> {: .language-bash}
-> ~~~
-> fructose.dat    sucrose.dat
-> ~~~
-> {: .output}
->
-> > ## Solution
-> > ```
-> > mv *.dat analyzed
-> > ```
-> > {: .language-bash}
-> > Jamie needs to move her files `fructose.dat` and `sucrose.dat` to the `analyzed` directory.
-> > The shell will expand *.dat to match all .dat files in the current directory.
-> > The `mv` command then moves the list of .dat files to the 'analyzed' directory.
-> {: .solution}
-{: .challenge}
 
-> ## Reproduce a folder structure
->
-> You're starting a new experiment and would like to duplicate the directory
-> structure from your previous experiment so you can add new data.
->
-> Assume that the previous experiment is in a folder called `2016-05-18`,
-> which contains a `data` folder that in turn contains folders named `raw` and
-> `processed` that contain data files.  The goal is to copy the folder structure
-> of the `2016-05-18` folder into a folder called `2016-05-20`
-> so that your final directory structure looks like this:
->
-> ~~~
-> 2016-05-20/
-> └── data
->    ├── processed
->    └── raw
-> ~~~
-> {: .output}
->
-> Which of the following set of commands would achieve this objective?
-> What would the other commands do?
->
-> ~~~
-> $ mkdir 2016-05-20
-> $ mkdir 2016-05-20/data
-> $ mkdir 2016-05-20/data/processed
-> $ mkdir 2016-05-20/data/raw
-> ~~~
-> {: .language-bash}
-> ~~~
-> $ mkdir 2016-05-20
-> $ cd 2016-05-20
-> $ mkdir data
-> $ cd data
-> $ mkdir raw processed
-> ~~~
-> {: .language-bash}
-> ~~~
-> $ mkdir 2016-05-20/data/raw
-> $ mkdir 2016-05-20/data/processed
-> ~~~
-> {: .language-bash}
-> ~~~
-> $ mkdir -p 2016-05-20/data/raw
-> $ mkdir -p 2016-05-20/data/processed
-> ~~~
-> {: .language-bash}
-> ~~~
-> $ mkdir 2016-05-20
-> $ cd 2016-05-20
-> $ mkdir data
-> $ mkdir raw processed
-> ~~~
-> {: .language-bash}
-> >
-> > ## Solution
-> > The first two sets of commands achieve this objective.
-> > The first set uses relative paths to create the top-level directory before
-> > the subdirectories.
-> >
-> > The third set of commands will give an error because the default behavior of `mkdir`
-> > won't create a subdirectory of a non-existent directory:
-> > the intermediate level folders must be created first.
-> >
-> > The fourth set of commands achieve this objective. Remember, the `-p` option,
-> > followed by a path of one or more
-> > directories, will cause `mkdir` to create any intermediate subdirectories as required.
-> >
-> > The final set of commands generates the 'raw' and 'processed' directories at the same level
-> > as the 'data' directory.
-> {: .solution}
-{: .challenge}
+
+
 
 {% include links.md %}
