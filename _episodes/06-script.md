@@ -207,6 +207,100 @@ TER      18              1
 ~~~
 {: .output}
 
+
+> ## EXERCISE: Variables in Shell Scripts
+>
+> In the `proteins` directory, imagine you have a shell script called `script.sh` containing the
+> following commands:
+>
+> ~~~
+> head -n $2 $1
+> tail -n $3 $1
+> ~~~
+> {: .language-bash}
+>
+> While you are in the `proteins` directory, you type the following command:
+>
+> ~~~
+> $ bash script.sh '*.pdb' 1 1
+> ~~~
+> {: .language-bash}
+>
+> Which of the following outputs would you expect to see?
+>
+> 1. All of the lines between the first and the last lines of each file ending in `.pdb`
+>    in the `proteins` directory
+> 2. The first and the last line of each file ending in `.pdb` in the `proteins` directory
+> 3. The first and the last line of each file in the `proteins` directory
+> 4. An error because of the quotes around `*.pdb`
+>
+> > ## Solution
+> > The correct answer is 2.
+> >
+> > The special variables $1, $2 and $3 represent the command line arguments given to the
+> > script, such that the commands run are:
+> >
+> > ```
+> > $ head -n 1 cubane.pdb ethane.pdb octane.pdb pentane.pdb propane.pdb
+> > $ tail -n 1 cubane.pdb ethane.pdb octane.pdb pentane.pdb propane.pdb
+> > ```
+> > {: .language-bash}
+> > The shell does not expand `'*.pdb'` because it is enclosed by quote marks.
+> > As such, the first argument to the script is `'*.pdb'` which gets expanded within the
+> > script by `head` and `tail`.
+> {: .solution}
+{: .challenge}
+
+> ## INFO: Find the Longest File With a Given Extension
+>
+> Write a shell script called `longest.sh` that takes the name of a
+> directory and a filename extension as its arguments, and prints
+> out the name of the file with the most lines in that directory
+> with that extension. For example:
+>
+> ~~~
+> $ bash longest.sh shell-lesson-data/data/pdb pdb
+> ~~~
+> {: .language-bash}
+>
+> would print the name of the `.pdb` file in `shell-lesson-data/data/pdb` that has
+> the most lines.
+>
+> Feel free to test your script on another directory e.g.
+> ~~~
+> $ bash longest.sh shell-lesson-data/writing/data txt
+> ~~~
+> {: .language-bash}
+>
+> > ## Solution
+> >
+> > ```
+> > # Shell script which takes two arguments:
+> > #    1. a directory name
+> > #    2. a file extension
+> > # and prints the name of the file in that directory
+> > # with the most lines which matches the file extension.
+> >
+> > wc -l $1/*.$2 | sort -n | tail -n 2 | head -n 1
+> > ```
+> > {: .language-bash}
+> >
+> > The first part of the pipeline, `wc -l $1/*.$2 | sort -n`, counts
+> > the lines in each file and sorts them numerically (largest last). When
+> > there's more than one file, `wc` also outputs a final summary line,
+> > giving the total number of lines across _all_ files.  We use `tail
+> > -n 2 | head -n 1` to throw away this last line.
+> >
+> > With `wc -l $1/*.$2 | sort -n | tail -n 1` we'll see the final summary
+> > line: we can build our pipeline up in pieces to be sure we understand
+> > the output.
+> >
+> {: .solution}
+{: .challenge}
+
+
+
+
 This works,
 but it may take the next person who reads `middle.sh` a moment to figure out what it does.
 We can improve our script by adding some **comments** at the top:
@@ -287,7 +381,7 @@ $ bash sorted.sh *.pdb ../creatures/*.dat
 ~~~
 {: .output}
 
-> ## List Unique Species
+> ## INFO: List Unique Species
 >
 > Leah has several hundred data files, each of which is formatted like this:
 >
@@ -362,7 +456,7 @@ After a moment's work in an editor to remove the serial numbers on the commands,
 and to remove the final line where we called the `history` command,
 we have a completely accurate record of how we created that figure.
 
-> ## Why Record Commands in the History Before Running Them?
+> ## INFO: Why Record Commands in the History Before Running Them?
 >
 > If you run the command:
 >
@@ -391,6 +485,57 @@ This style of work allows people to recycle
 what they discover about their data and their workflow with one call to `history`
 and a bit of editing to clean up the output
 and save it as a shell script.
+
+
+> ## EXERCISE: Script Reading Comprehension
+>
+> For this question, consider the `shell-lesson-data/exercise-data/proteins` directory once again.
+> This contains a number of `.pdb` files in addition to any other files you
+> may have created.
+> Explain what each of the following three scripts would do when run as
+> `bash script1.sh *.pdb`, `bash script2.sh *.pdb`, and `bash script3.sh *.pdb` respectively.
+>
+> ~~~
+> # Script 1
+> echo *.*
+> ~~~
+> {: .language-bash}
+>
+> ~~~
+> # Script 2
+> for filename in $1 $2 $3
+> do
+>     cat $filename
+> done
+> ~~~
+> {: .language-bash}
+>
+> ~~~
+> # Script 3
+> echo $@.pdb
+> ~~~
+> {: .language-bash}
+>
+> > ## Solutions
+> > In each case, the shell expands the wildcard in `*.pdb` before passing the resulting
+> > list of file names as arguments to the script.
+> >
+> > Script 1 would print out a list of all files containing a dot in their name.
+> > The arguments passed to the script are not actually used anywhere in the script.
+> >
+> > Script 2 would print the contents of the first 3 files with a `.pdb` file extension.
+> > `$1`, `$2`, and `$3` refer to the first, second, and third argument respectively.
+> >
+> > Script 3 would print all the arguments to the script (i.e. all the `.pdb` files),
+> > followed by `.pdb`.
+> > `$@` refers to *all* the arguments given to a shell script.
+> > ```
+> > cubane.pdb ethane.pdb methane.pdb octane.pdb pentane.pdb propane.pdb.pdb
+> > ```
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
 
 ## Nelle's Pipeline: Creating a Script
 
@@ -466,146 +611,9 @@ she could modify her script to check for command-line arguments,
 and use `NENE*A.txt NENE*B.txt` if none were provided.
 Of course, this introduces another tradeoff between flexibility and complexity.
 
-> ## Variables in Shell Scripts
->
-> In the `proteins` directory, imagine you have a shell script called `script.sh` containing the
-> following commands:
->
-> ~~~
-> head -n $2 $1
-> tail -n $3 $1
-> ~~~
-> {: .language-bash}
->
-> While you are in the `proteins` directory, you type the following command:
->
-> ~~~
-> $ bash script.sh '*.pdb' 1 1
-> ~~~
-> {: .language-bash}
->
-> Which of the following outputs would you expect to see?
->
-> 1. All of the lines between the first and the last lines of each file ending in `.pdb`
->    in the `proteins` directory
-> 2. The first and the last line of each file ending in `.pdb` in the `proteins` directory
-> 3. The first and the last line of each file in the `proteins` directory
-> 4. An error because of the quotes around `*.pdb`
->
-> > ## Solution
-> > The correct answer is 2.
-> >
-> > The special variables $1, $2 and $3 represent the command line arguments given to the
-> > script, such that the commands run are:
-> >
-> > ```
-> > $ head -n 1 cubane.pdb ethane.pdb octane.pdb pentane.pdb propane.pdb
-> > $ tail -n 1 cubane.pdb ethane.pdb octane.pdb pentane.pdb propane.pdb
-> > ```
-> > {: .language-bash}
-> > The shell does not expand `'*.pdb'` because it is enclosed by quote marks.
-> > As such, the first argument to the script is `'*.pdb'` which gets expanded within the
-> > script by `head` and `tail`.
-> {: .solution}
-{: .challenge}
 
-> ## Find the Longest File With a Given Extension
->
-> Write a shell script called `longest.sh` that takes the name of a
-> directory and a filename extension as its arguments, and prints
-> out the name of the file with the most lines in that directory
-> with that extension. For example:
->
-> ~~~
-> $ bash longest.sh shell-lesson-data/data/pdb pdb
-> ~~~
-> {: .language-bash}
->
-> would print the name of the `.pdb` file in `shell-lesson-data/data/pdb` that has
-> the most lines.
->
-> Feel free to test your script on another directory e.g.
-> ~~~
-> $ bash longest.sh shell-lesson-data/writing/data txt
-> ~~~
-> {: .language-bash}
->
-> > ## Solution
-> >
-> > ```
-> > # Shell script which takes two arguments:
-> > #    1. a directory name
-> > #    2. a file extension
-> > # and prints the name of the file in that directory
-> > # with the most lines which matches the file extension.
-> >
-> > wc -l $1/*.$2 | sort -n | tail -n 2 | head -n 1
-> > ```
-> > {: .language-bash}
-> >
-> > The first part of the pipeline, `wc -l $1/*.$2 | sort -n`, counts
-> > the lines in each file and sorts them numerically (largest last). When
-> > there's more than one file, `wc` also outputs a final summary line,
-> > giving the total number of lines across _all_ files.  We use `tail
-> > -n 2 | head -n 1` to throw away this last line.
-> >
-> > With `wc -l $1/*.$2 | sort -n | tail -n 1` we'll see the final summary
-> > line: we can build our pipeline up in pieces to be sure we understand
-> > the output.
-> >
-> {: .solution}
-{: .challenge}
 
-> ## Script Reading Comprehension
->
-> For this question, consider the `shell-lesson-data/exercise-data/proteins` directory once again.
-> This contains a number of `.pdb` files in addition to any other files you
-> may have created.
-> Explain what each of the following three scripts would do when run as
-> `bash script1.sh *.pdb`, `bash script2.sh *.pdb`, and `bash script3.sh *.pdb` respectively.
->
-> ~~~
-> # Script 1
-> echo *.*
-> ~~~
-> {: .language-bash}
->
-> ~~~
-> # Script 2
-> for filename in $1 $2 $3
-> do
->     cat $filename
-> done
-> ~~~
-> {: .language-bash}
->
-> ~~~
-> # Script 3
-> echo $@.pdb
-> ~~~
-> {: .language-bash}
->
-> > ## Solutions
-> > In each case, the shell expands the wildcard in `*.pdb` before passing the resulting
-> > list of file names as arguments to the script.
-> >
-> > Script 1 would print out a list of all files containing a dot in their name.
-> > The arguments passed to the script are not actually used anywhere in the script.
-> >
-> > Script 2 would print the contents of the first 3 files with a `.pdb` file extension.
-> > `$1`, `$2`, and `$3` refer to the first, second, and third argument respectively.
-> >
-> > Script 3 would print all the arguments to the script (i.e. all the `.pdb` files),
-> > followed by `.pdb`.
-> > `$@` refers to *all* the arguments given to a shell script.
-> > ```
-> > cubane.pdb ethane.pdb methane.pdb octane.pdb pentane.pdb propane.pdb.pdb
-> > ```
-> > {: .output}
-> {: .solution}
-{: .challenge}
-
-> ## Debugging Scripts
+> ## EXERCISE: Debugging Scripts
 >
 > Suppose you have saved the following script in a file called `do-errors.sh`
 > in Nelle's `north-pacific-gyre/scripts` directory:

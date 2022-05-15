@@ -258,7 +258,7 @@ Miscellaneous:
 ~~~
 {: .output}
 
-> ## Using `grep`
+> ## EXERCISE: Using `grep`
 >
 > Which command would result in the following output:
 >
@@ -308,7 +308,7 @@ Miscellaneous:
 > matches an actual 'o'.
 {: .callout}
 
-> ## Tracking a Species
+> ## INFO: Tracking a Species
 >
 > Leah has several hundred
 > data files saved in one directory, each of which is formatted like this:
@@ -372,7 +372,7 @@ Miscellaneous:
 > {: .solution}
 {: .challenge}
 
-> ## Little Women
+> ## INFO: Little Women
 >
 > You and your friend, having just finished reading *Little Women* by
 > Louisa May Alcott, are in an argument.  Of the four sisters in the
@@ -644,7 +644,7 @@ $ grep "searching" $(find . -name "*.txt")
 ~~~
 {: .output}
 
-> ## Matching and Subtracting
+> ## EXERCISE: Matching and Subtracting
 >
 > The `-v` option to `grep` inverts pattern matching, so that only lines
 > which do *not* match the pattern are printed. Given that, which of
@@ -705,8 +705,8 @@ And as Alfred North Whitehead wrote in 1911, 'Civilization advances by
 extending the number of important operations which we can perform
 without thinking about them.'
 
-> ## `find` Pipeline Reading Comprehension
->358242
+> ## INFO: `find` Pipeline Reading Comprehension
+>
 > Write a short explanatory comment for the following shell script:
 >
 > ~~~

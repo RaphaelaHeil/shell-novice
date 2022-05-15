@@ -192,7 +192,7 @@ $ cat lengths.txt
 Next we'll use the `sort` command to sort the contents of the `lengths.txt` file.
 But first we'll use an exercise to learn a little about the sort command:
 
-> ## What Does `sort -n` Do?
+> ## INFO: What Does `sort -n` Do?
 >
 > The file `shell-lesson-data/exercise-data/numbers.txt` contains the following lines:
 >
@@ -296,7 +296,7 @@ the output of `head` must be the file with the fewest lines.
 > the contents of `lengths.txt`.
 {: .callout}
 
-> ## What Does `>>` Mean?
+> ## INFO: What Does `>>` Mean?
 >
 > We have seen the use of `>`, but there is a similar operator `>>`
 > which works slightly differently.
@@ -339,7 +339,7 @@ the output of `head` must be the file with the fewest lines.
 > {: .solution}
 {: .challenge}
 
-> ## Appending Data
+> ## EXERCISE: Appending Data
 >
 > We have already met the `head` command, which prints lines from the start of a file.
 > `tail` is similar, but prints lines from the end of a file instead.
@@ -445,7 +445,7 @@ output of the "wc" command is the input to the "sort" command, the output of
 the "sort" command is the input to the "head" command and the output of the
 "head" command is directed to the shell](../fig/redirects-and-pipes.svg)
 
-> ## Piping Commands Together
+> ## INFO: Piping Commands Together
 >
 > In our current directory, we want to find the 3 files which have the least number of
 > lines. Which command listed below would work?
@@ -487,7 +487,7 @@ You can *and should* write your programs this way
 so that you and other people can put those programs into pipes to multiply their power.
 
 
-> ## Pipe Reading Comprehension
+> ## EXERCISE: Pipe Reading Comprehension
 >
 > A file called `animals.csv` (in the `shell-lesson-data/exercise-data/animal-counts` folder)
 > contains the following data:
@@ -529,7 +529,7 @@ so that you and other people can put those programs into pipes to multiply their
 > {: .solution}
 {: .challenge}
 
-> ## Pipe Construction
+> ## INFO: Pipe Construction
 >
 > For the file `animals.csv` from the previous exercise, consider the following command:
 >
@@ -570,7 +570,7 @@ so that you and other people can put those programs into pipes to multiply their
 > {: .solution}
 {: .challenge}
 
-> ## Which Pipe?
+> ## INFO: Which Pipe?
 >
 > The file `animals.csv` contains 8 lines of data formatted as follows:
 >
@@ -691,7 +691,7 @@ so instead, she'll have to be careful later on to select files using the wildcar
 `NENE*A.txt NENE*B.txt`.
 
 
-> ## Removing Unneeded Files
+> ## EXERCISE: Removing Unneeded Files
 >
 > Suppose you want to delete your processed data files, and only keep
 > your raw files and processing script to save storage.

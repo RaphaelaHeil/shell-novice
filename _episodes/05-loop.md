@@ -165,7 +165,7 @@ writing the code and the person reading it.
 Note also that loops can be used for other things than filenames, like a list of numbers
 or a subset of data.
 
-> ## Write your own loop
+> ## INFO: Write your own loop
 >
 > How would you write a loop that echoes all 10 numbers from 0 to 9?
 >
@@ -195,7 +195,7 @@ or a subset of data.
 > {: .solution}
 {: .challenge}
 
-> ## Variables in Loops
+> ## INFO: Variables in Loops
 >
 > This exercise refers to the `shell-lesson-data/exercise-data/proteins` directory.
 > `ls *.pdb` gives the following output:
@@ -268,7 +268,7 @@ or a subset of data.
 > {: .solution}
 {: .challenge}
 
-> ## Limiting Sets of Files
+> ## EXERCISE: Limiting Sets of Files
 >
 > What would be the output of running the following loop in the
 > `shell-lesson-data/exercise-data/proteins` directory?
@@ -313,7 +313,7 @@ or a subset of data.
 > {: .solution}
 {: .challenge}
 
-> ## Saving to a File in a Loop - Part One
+> ## INFO: Saving to a File in a Loop - Part One
 >
 > In the `shell-lesson-data/exercise-data/proteins` directory, what is the effect of this loop?
 >
@@ -342,7 +342,7 @@ or a subset of data.
 > {: .solution}
 {: .challenge}
 
-> ## Saving to a File in a Loop - Part Two
+> ## INFO: Saving to a File in a Loop - Part Two
 >
 > Also in the `shell-lesson-data/exercise-data/proteins` directory,
 > what would be the output of the following loop?
@@ -722,7 +722,7 @@ so she decides to get some coffee and catch up on her reading.
 > quicker than doing <kbd>↑</kbd> and editing the command-line.
 {: .callout}
 
-> ## Doing a Dry Run
+> ## INFO: Doing a Dry Run
 >
 > A loop is a way to do many things at once --- or to make many mistakes at
 > once if it does the wrong thing. One way to check what a loop *would* do
@@ -777,7 +777,7 @@ so she decides to get some coffee and catch up on her reading.
 > {: .solution}
 {: .challenge}
 
-> ## Nested Loops
+> ## INFO: Nested Loops
 >
 > Suppose we want to set up a directory structure to organize
 > some experiments measuring reaction rate constants with different compounds
